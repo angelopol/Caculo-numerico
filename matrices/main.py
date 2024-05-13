@@ -1,30 +1,52 @@
 import flet as ft
+from ConvertirUi import ConvertirUi
+from GaussUi import GaussUi
+from ui import OutputBox
 
 def main(page: ft.Page):
     page.title = "Matrices y conversiones"
 
-    InputBox = ft.TextField(label="Input", col={"md": 4})
-    OutputBox = ft.Text(value="", col={"md": 4})
-    BoxesRow = ft.ResponsiveRow([InputBox, OutputBox])
+    output = OutputBox()
+    convertir = ConvertirUi(output).GetUi()   
+    gauss = GaussUi(output).GetUi()
 
-    # Define button click event
-    def button_click(e):
-        # Update output based on which button was clicked
-        if e.control.text == "PRIMARY":
-            OutputBox.value = "Primary button clicked"
-        elif e.control.text == "DANGER":
-            OutputBox.value = "Danger button clicked"
-        elif e.control.text == "SUCCESS":
-            OutputBox.value = "Success button clicked"
-        page.update()
+    ContentColumn = ft.Column(
+        convertir, alignment=ft.MainAxisAlignment.START, expand=True
+    )
+    
+    def ChangeContent(e):
+        if e.control.selected_index == 0:
+            ContentColumn.controls = convertir
+        else:
+            ContentColumn.controls = gauss
+        ContentColumn.update()
 
-    # Create buttons
-    PrimaryButton = ft.ElevatedButton(text="PRIMARY", on_click=button_click, col={"md": 4})
-    DangerButton = ft.ElevatedButton(text="DANGER", on_click=button_click, color=ft.colors.RED, col={"md": 4})
-    SuccessButton = ft.ElevatedButton(text="SUCCESS", on_click=button_click, color=ft.colors.GREEN, col={"md": 4})
-    ButtonsRow = ft.ResponsiveRow([PrimaryButton, DangerButton, SuccessButton])
+    rail = ft.NavigationRail(
+        selected_index=0,
+        label_type=ft.NavigationRailLabelType.ALL,
+        min_width=100,
+        min_extended_width=400,
+        destinations=[
+            ft.NavigationRailDestination(
+                icon=ft.icons.NUMBERS_ROUNDED,
+                label="Convertir"
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.icons.VIEW_LIST_ROUNDED,
+                label="Gauss",
+            )
+        ],
+        on_change=lambda e: ChangeContent(e),
+    )
 
-    # Add controls to the page
-    page.add(BoxesRow, ButtonsRow)
+    RailRow = ft.Row(
+        [
+            rail,
+            ft.VerticalDivider(width=1),
+            ContentColumn
+        ],
+        expand=True,
+    )
+    page.add(RailRow)
 
 ft.app(main)

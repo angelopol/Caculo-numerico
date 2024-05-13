@@ -1,6 +1,6 @@
 import numpy as np
 
-def gauss_jordan(a, b):
+def GaussJordan(a, b):
     """
     Resuelve el sistema de ecuaciones lineales Ax = b usando el método de Gauss-Jordan.
     :param a: Matriz cuadrada de coeficientes (nxn).
@@ -36,9 +36,3 @@ def gauss_jordan(a, b):
     x = ab[:, -1]
     
     return x
-
-# Ejemplo de uso:
-A = [[2, 1, -1], [-3, -1, 2], [-2, 1, 2]]
-b = [8, -11, -3]
-x = gauss_jordan(A, b)
-print(x)

@@ -28,4 +28,4 @@ def AllToDecimal(num, c):
     return result
 
 def AllToAll(num, base, ToBase):
-    return DecimalToAll(AllToDecimal(num, base), ToBase)
+    return DecimalToAll(AllToDecimal(str(num), int(base)), int(ToBase))
