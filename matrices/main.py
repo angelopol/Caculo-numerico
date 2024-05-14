@@ -1,15 +1,17 @@
 import flet as ft
 from ConvertirUi import ConvertirUi
 from GaussUi import GaussUi
-from ui import OutputBox
+from ui import OutputBox, AtentionDialogs, HistorialModal
 
 def main(page: ft.Page):
-    page.title = "Matrices y conversiones"
+    page.title = "Calculadora"
     page.theme = ft.Theme(font_family="Nunito")
 
     output = OutputBox()
-    convertir = ConvertirUi(output).GetUi()   
-    gauss = GaussUi(output).GetUi()
+    historial = HistorialModal(page, output)
+    dialog = AtentionDialogs(page)
+    convertir = ConvertirUi(output, dialog, historial).GetUi()   
+    gauss = GaussUi(output, dialog, historial).GetUi()
 
     ContentColumn = ft.Column(
         convertir, alignment=ft.MainAxisAlignment.START, expand=True
@@ -30,11 +32,11 @@ def main(page: ft.Page):
         destinations=[
             ft.NavigationRailDestination(
                 icon_content=ft.Icon(ft.icons.NUMBERS_ROUNDED, scale=1.5),
-                label_content=ft.Text("Convertir", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20))
+                label_content=ft.Text("Convertir", style=ft.TextStyle(size=20))
             ),
             ft.NavigationRailDestination(
                 icon_content=ft.Icon(ft.icons.VIEW_LIST_ROUNDED, scale=1.5),
-                label_content=ft.Text("Gauss", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20))
+                label_content=ft.Text("Gauss Jordan", style=ft.TextStyle(size=20))
             )
         ],
         on_change=lambda e: ChangeContent(e),

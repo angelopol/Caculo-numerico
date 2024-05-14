@@ -34,7 +34,7 @@ def GaussJordan(a, b):
     for i in range(n):
         # Verificar que el elemento diagonal no sea cero
         if ab[i, i] == 0:
-            raise ValueError("División por cero detectada.")
+            raise ValueError("El elemento diagonal es igual a 0, lo que genera una indeterminaciòn por divisiòn entre cero.")
         
         # Hacer el elemento diagonal 1
         ab[i] = ab[i] / ab[i, i]
