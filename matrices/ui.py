@@ -51,6 +51,12 @@ def MakeLabel(label = None, content = None, visible = True, bg = True, alignment
             visible=visible
         )
 
+def ModalButton(label, function):
+    return ft.ElevatedButton(
+        content=ft.Text(label, style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20, color="#D4E1FF")),
+        on_click=function, height= 50, width=200
+    )
+
 class HistorialModal:
     def __init__(self, page, output):
         self.output = output
@@ -59,11 +65,9 @@ class HistorialModal:
             modal=True,
             title=ft.Text("Historial."),
             actions=[
-                ft.ElevatedButton(
-                    content=ft.Text("Cerrar", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20, color="#D4E1FF")),
-                    on_click=lambda _: self.close(), height= 50, width=200)
+                ModalButton("Cerrar", lambda _: self.close())
             ],
-            actions_alignment=ft.MainAxisAlignment.END
+            actions_alignment=ft.MainAxisAlignment.CENTER
         )
 
     def MakeResults(self):
@@ -93,9 +97,7 @@ class AtentionDialogs:
             title= ft.Text(),
             content= ft.Text(style=ft.TextStyle(size=18)),
             actions=[
-                ft.ElevatedButton(
-                    content=ft.Text("Continuar", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20, color="#D4E1FF")),
-                    on_click=lambda _: self.close(), height= 50, width=200)
+                ModalButton("Continuar", lambda _: self.close())
             ],
             actions_alignment=ft.MainAxisAlignment.END
         )

@@ -19,6 +19,23 @@ def VerifyNumero(num, base):
                 return False
     return True
 
+def MakeBaseDropdown(label):
+    return ft.Dropdown(
+        label=label,
+        label_style=ft.TextStyle(size=20),
+        options=[
+            ft.dropdown.Option("2"),
+            ft.dropdown.Option("3"),
+            ft.dropdown.Option("4"),
+            ft.dropdown.Option("8"),
+            ft.dropdown.Option("10"),
+            ft.dropdown.Option("16"),
+        ],
+        filled=True,
+        border_radius=40,
+        border_width=0
+    )
+
 class ConvertirUi:
     note = MakeLabel(label="Conversiòn unicamente para nùmeros enteros.")
     NumInput = ft.TextField(
@@ -29,43 +46,15 @@ class ConvertirUi:
         border_radius=40,
         border_width=0
     )
-    ToBaseDrop = ft.Dropdown(
-        label="Base objetivo",
-        label_style=ft.TextStyle(size=20),
-        options=[
-            ft.dropdown.Option("2"),
-            ft.dropdown.Option("3"),
-            ft.dropdown.Option("4"),
-            ft.dropdown.Option("8"),
-            ft.dropdown.Option("10"),
-            ft.dropdown.Option("16"),
-        ],
-        filled=True,
-        border_radius=40,
-        border_width=0
-    )
-    BaseDrop = ft.Dropdown(
-        label="Base del nùmero",
-        label_style=ft.TextStyle(size=20),
-        options=[
-            ft.dropdown.Option("2"),
-            ft.dropdown.Option("3"),
-            ft.dropdown.Option("4"),
-            ft.dropdown.Option("8"),
-            ft.dropdown.Option("10"),
-            ft.dropdown.Option("16"),
-        ],
-        filled=True,
-        border_radius=40,
-        border_width=0
-    )
+    ToBaseDrop = MakeBaseDropdown("Base objetivo")
+    BaseDrop = MakeBaseDropdown("Base del nùmero")
     column = ft.Column([note, NumInput, BaseDrop, ToBaseDrop],
         alignment=ft.MainAxisAlignment.START, expand=True)
 
     def __init__(self, output, dialog, historial):
         self.dialog = dialog
         self.output = output
-        self.ConvertirButton = BottomButtons(lambda e: self.ShowResult(), "Convertir", historial)
+        self.ConvertirButton = BottomButtons(lambda _: self.ShowResult(), "Convertir", historial)
 
     def GetUi(self):   
         return self.column, self.output.text, self.ConvertirButton
