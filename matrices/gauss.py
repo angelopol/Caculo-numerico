@@ -5,7 +5,7 @@ def GaussJordan(a, b):
     a = np.array(a, dtype=float)
     b = np.array(b, dtype=float)
     
-    # Obtener el número de filas
+    # Obtener el nùmero de filas
     n = len(b)
     
     # Calcular el determinante de a
@@ -24,7 +24,7 @@ def GaussJordan(a, b):
     elif rank_a < n:
         raise ValueError("El sistema tiene infinitas soluciones.")
     
-    # Aplicar eliminación hacia adelante
+    # Aplicar eliminaciòn hacia adelante
     for i in range(n):
         # Verificar que el elemento diagonal no sea cero
         if ab[i, i] == 0:
@@ -37,13 +37,13 @@ def GaussJordan(a, b):
         for j in range(i+1, n):
             ab[j] = ab[j] - ab[j, i] * ab[i]
     
-    # Aplicar sustitución hacia atrás
+    # Aplicar sustituciòn hacia atràs
     for i in range(n-1, -1, -1):
         # Hacer los elementos por encima de la diagonal 0
         for j in range(i-1, -1, -1):
             ab[j] = ab[j] - ab[j, i] * ab[i]
     
-    # La última columna de la matriz aumentada es ahora la solución
+    # La ùltima columna de la matriz aumentada es ahora la soluciòn
     x = ab[:, -1]
     
     return x
