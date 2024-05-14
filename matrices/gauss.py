@@ -1,13 +1,6 @@
 import numpy as np
 
 def GaussJordan(a, b):
-    """
-    Resuelve el sistema de ecuaciones lineales Ax = b usando el método de Gauss-Jordan. Esta funcion solo resuelve
-    sistemas con una unica solucion.
-    :param a: Matriz cuadrada de coeficientes (nxn).
-    :param b: Vector de términos independientes (n).
-    :return: Vector de soluciones x (n).
-    """
     # Convertir a y b a arrays de numpy para facilitar las operaciones
     a = np.array(a, dtype=float)
     b = np.array(b, dtype=float)
@@ -17,7 +10,7 @@ def GaussJordan(a, b):
     
     # Calcular el determinante de a
     if np.linalg.det(a) == 0:
-        raise ValueError("La matriz es singular, el sistema no tiene una solución única.")
+        raise ValueError("La matriz es singular, el sistema no tiene una soluciòn ùnica.")
     
     # Formar la matriz aumentada
     ab = np.hstack([a, b.reshape(-1, 1)])
@@ -27,7 +20,7 @@ def GaussJordan(a, b):
     rank_ab = np.linalg.matrix_rank(ab)
     
     if rank_a < rank_ab:
-        raise ValueError("El sistema no tiene solución.")
+        raise ValueError("El sistema no tiene soluciòn.")
     elif rank_a < n:
         raise ValueError("El sistema tiene infinitas soluciones.")
     
