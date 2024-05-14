@@ -5,6 +5,7 @@ from ui import OutputBox
 
 def main(page: ft.Page):
     page.title = "Matrices y conversiones"
+    page.theme = ft.Theme(font_family="Nunito")
 
     output = OutputBox()
     convertir = ConvertirUi(output).GetUi()   

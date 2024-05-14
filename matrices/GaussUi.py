@@ -81,8 +81,8 @@ class GaussUi:
             ft.Text("Dimensiòn de la matriz:"), self.DimensionInput,
             ft.Text("Matriz:"), self.matriz.GetInputs(),
             ft.Text("Vector de tèrminos independientes:"), self.vector.GetInputs(),
-            self.ObtenerButton,
-            self.output)
+            self.output.text,
+            self.ObtenerButton)
     
     def ShowResult(self):
         matriz = []

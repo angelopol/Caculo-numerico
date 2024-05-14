@@ -26,13 +26,14 @@ class ConvertirUi:
             ft.dropdown.Option("16"),
         ]
     )
+    column = ft.Column([NumInput, ToBaseDrop, BaseDrop], alignment=ft.MainAxisAlignment.START, expand=True)
 
     def __init__(self, output):
         self.output = output
         self.ConvertirButton = SuccessButton(lambda e: self.ShowResult(), "Convertir")
 
     def GetUi(self):   
-        return self.NumInput, self.BaseDrop, self.ToBaseDrop, self.ConvertirButton, self.output
+        return self.column, self.output.text, self.ConvertirButton
     
     def ShowResult(self):
         result = AllToAll(self.NumInput.value, self.BaseDrop.value, self.ToBaseDrop.value)
