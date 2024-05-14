@@ -2,7 +2,8 @@ import numpy as np
 
 def GaussJordan(a, b):
     """
-    Resuelve el sistema de ecuaciones lineales Ax = b usando el método de Gauss-Jordan.
+    Resuelve el sistema de ecuaciones lineales Ax = b usando el método de Gauss-Jordan. Esta funcion solo resuelve
+    sistemas con una unica solucion.
     :param a: Matriz cuadrada de coeficientes (nxn).
     :param b: Vector de términos independientes (n).
     :return: Vector de soluciones x (n).
