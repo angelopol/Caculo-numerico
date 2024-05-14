@@ -26,7 +26,7 @@ class ConvertirUi:
             ft.dropdown.Option("16"),
         ]
     )
-    column = ft.Column([NumInput, ToBaseDrop, BaseDrop], alignment=ft.MainAxisAlignment.START, expand=True)
+    column = ft.Column([NumInput, BaseDrop, ToBaseDrop], alignment=ft.MainAxisAlignment.START, expand=True)
 
     def __init__(self, output):
         self.output = output

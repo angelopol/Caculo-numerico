@@ -14,11 +14,28 @@ def GaussJordan(a, b):
     # Obtener el número de filas
     n = len(b)
     
+    # Calcular el determinante de a
+    if np.linalg.det(a) == 0:
+        raise ValueError("La matriz es singular, el sistema no tiene una solución única.")
+    
     # Formar la matriz aumentada
     ab = np.hstack([a, b.reshape(-1, 1)])
     
+    # Calcular el rango de la matriz a y la matriz aumentada ab
+    rank_a = np.linalg.matrix_rank(a)
+    rank_ab = np.linalg.matrix_rank(ab)
+    
+    if rank_a < rank_ab:
+        raise ValueError("El sistema no tiene solución.")
+    elif rank_a < n:
+        raise ValueError("El sistema tiene infinitas soluciones.")
+    
     # Aplicar eliminación hacia adelante
     for i in range(n):
+        # Verificar que el elemento diagonal no sea cero
+        if ab[i, i] == 0:
+            raise ValueError("División por cero detectada.")
+        
         # Hacer el elemento diagonal 1
         ab[i] = ab[i] / ab[i, i]
         

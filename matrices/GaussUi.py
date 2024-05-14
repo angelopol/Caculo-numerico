@@ -15,7 +15,7 @@ class MatrizInputs():
             elements = []
             for n in range(0, num):
                 element = ft.TextField(
-                    input_filter=ft.InputFilter('^[0-9]*$'),
+                    input_filter=ft.InputFilter('^-?[0-9]*$'),
                     border=ft.InputBorder.NONE,
                     filled=True,
                     col={"md": 1, 'sm': 1, 'lg': 1}
@@ -45,7 +45,7 @@ class VectorInput():
         elements = []
         for n in range(0, num):
             element = ft.TextField(
-                input_filter=ft.InputFilter('^[0-9]*$'),
+                input_filter=ft.InputFilter('^-?[0-9]*$'),
                 border=ft.InputBorder.NONE,
                 filled=True,
                 col={"md": 1, 'sm': 1, 'lg': 1}

@@ -29,12 +29,12 @@ def main(page: ft.Page):
         min_extended_width=400,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.NUMBERS_ROUNDED,
-                label="Convertir"
+                icon_content=ft.Icon(ft.icons.NUMBERS_ROUNDED, scale=1.5),
+                label_content=ft.Text("Convertir", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20))
             ),
             ft.NavigationRailDestination(
-                icon=ft.icons.VIEW_LIST_ROUNDED,
-                label="Gauss",
+                icon_content=ft.Icon(ft.icons.VIEW_LIST_ROUNDED, scale=1.5),
+                label_content=ft.Text("Gauss", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20))
             )
         ],
         on_change=lambda e: ChangeContent(e),
