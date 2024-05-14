@@ -17,6 +17,9 @@ def MakeBottomButton(label, col, ColorHex, color, icon, function):
         col=col
     )
 
+def AletorioButton(function, col = {}):
+    return MakeBottomButton("Aleatorio", col, "#d15241", "#d15241", ft.icons.ONETWOTHREE_ROUNDED, function)
+
 def SuccessButton(function, label, col = {}):
     return MakeBottomButton(label, col, "green", ft.colors.GREEN, ft.icons.ARROW_FORWARD_ROUNDED, function)
 
@@ -24,9 +27,9 @@ def HistorialButton(HistorialModal, col = {}):
     return MakeBottomButton("Historial", col, "blue", ft.colors.BLUE,
         ft.icons.FILTER_LIST_ROUNDED, lambda _: HistorialModal.open())
 
-def BottomButtons(function, label, historial, col = {}):
+def BottomButtons(function, label, historial, function2, col = {}):
     return ft.Row(
-        [HistorialButton(historial, col), SuccessButton(function, label)],
+        [HistorialButton(historial, col), AletorioButton(function2, col), SuccessButton(function, label, col)],
         alignment=ft.MainAxisAlignment.END
     )
 
@@ -76,8 +79,8 @@ class HistorialModal:
         if len(results) == 0:
             return ft.Text("Aùn no ha generado ningùn resultado.", style=ft.TextStyle(size=18))
         for result in reversed(results):
-            elements.append(MakeLabel(result, size=15))
-        return ft.Column(elements, alignment=ft.MainAxisAlignment.START, expand=True)
+            elements.append(MakeLabel(result, size=20))
+        return ft.Column(elements, alignment=ft.MainAxisAlignment.START, expand=True, scroll=ft.ScrollMode.ALWAYS)
 
     def open(self):
         self.modal.content = self.MakeResults()

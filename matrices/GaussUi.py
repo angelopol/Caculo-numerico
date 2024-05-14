@@ -1,6 +1,7 @@
 import flet as ft
 from ui import BottomButtons, MakeLabel
 from gauss import GaussJordan
+from random import randrange
 
 def MakeElements(num):
     elements = []
@@ -16,7 +17,7 @@ def MakeElements(num):
         col = {"md": 1, 'sm': 1, 'lg': 1}
     for n in range(0, num):
         element = ft.TextField(
-            input_filter=ft.InputFilter('^-?[0-9]*$'),
+            input_filter=ft.InputFilter('^-?[0.-9]*$'),
             filled=True,
             col=col,
             border_radius=40,
@@ -69,6 +70,15 @@ class VectorInput():
         vector.InputsColumn.controls = [vector.GetRow()]
         vector.InputsColumn.update()
 
+def GaussAleatorio(rows1, rows2):
+    for element in rows1:
+        for c in element.controls:
+            c.value = randrange(999999999)
+            c.update()
+    for element in rows2:
+        element.value = randrange(999999999)
+        element.update()
+
 class GaussUi:
     matriz = MatrizInputs(3)
     vector = VectorInput(3)
@@ -86,7 +96,8 @@ class GaussUi:
     def __init__(self, output, dialog, historial):
         self.dialog = dialog
         self.output = output
-        self.ObtenerButton = BottomButtons(lambda e: self.ShowResult(), "Obtener", historial)
+        self.ObtenerButton = BottomButtons(lambda e: self.ShowResult(), "Obtener", historial,
+            lambda e: GaussAleatorio([row for row in self.matriz.GetRows()], self.vector.GetRow().controls))
     
     def GetUi(self):   
         return (
@@ -104,7 +115,7 @@ class GaussUi:
                 if element.value == "":
                     self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', "Existe un campo de la matriz vacìo.")
                     return
-                if not element.value.isnumeric():
+                if not element.value.isnumeric() and not element.value.replace('.', '', 1).isdigit():
                     self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', element.value + " no es un nùmero vàlido para la matriz.")
                     return
                 elements.append(float(element.value))
@@ -114,7 +125,7 @@ class GaussUi:
             if element.value == "":
                 self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', "Existe un campo del vector vacìo.")
                 return
-            if not element.value.isnumeric():
+            if not element.value.isnumeric() and not element.value.replace('.', '', 1).isdigit():
                 self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', element.value + " no es un nùmero vàlido para el vector.")
                 return
             vector.append(float(element.value))

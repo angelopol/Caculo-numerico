@@ -1,9 +1,10 @@
 import flet as ft
+from random import randrange
 from ui import BottomButtons, MakeLabel
 from convertions import AllToAll
 
 def VerifyNumero(num, base):
-    for n in num:
+    for n in str(num):
         if n.isnumeric():
             if int(base) == 16:
                 if int(n) >= 10:
@@ -36,6 +37,14 @@ def MakeBaseDropdown(label):
         border_width=0
     )
 
+def ConvertirAleatorio(NumInput, BaseDrop, ToBaseDrop):
+    NumInput.value = randrange(999999999)
+    NumInput.update()
+    BaseDrop.value = 10
+    BaseDrop.update()
+    ToBaseDrop.value = 16
+    ToBaseDrop.update()
+
 class ConvertirUi:
     note = MakeLabel(label="Conversiòn unicamente para nùmeros enteros.")
     NumInput = ft.TextField(
@@ -54,7 +63,8 @@ class ConvertirUi:
     def __init__(self, output, dialog, historial):
         self.dialog = dialog
         self.output = output
-        self.ConvertirButton = BottomButtons(lambda _: self.ShowResult(), "Convertir", historial)
+        self.ConvertirButton = BottomButtons(lambda _: self.ShowResult(), "Convertir", historial,
+            lambda e: ConvertirAleatorio(self.NumInput, self.BaseDrop, self.ToBaseDrop))
 
     def GetUi(self):   
         return self.column, self.output.text, self.ConvertirButton
