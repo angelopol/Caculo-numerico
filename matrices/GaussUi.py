@@ -79,6 +79,15 @@ def GaussAleatorio(rows1, rows2):
         element.value = randrange(999999999)
         element.update()
 
+def VerifyVectores(element, dialog, label):
+    if str(element) == "":
+        dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', "Existe un campo de {0} vacìo.".format(label))
+        return False
+    if not str(element).isnumeric() and not str(element).replace('.', '', 1).isdigit():
+        dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', str(element) + " no es un nùmero vàlido para {0}.".format(label))
+        return False
+    return True
+
 class GaussUi:
     matriz = MatrizInputs(3)
     vector = VectorInput(3)
@@ -112,29 +121,19 @@ class GaussUi:
         for row in self.matriz.GetRows():
             elements = []
             for element in row.controls:
-                if element.value == "":
-                    self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', "Existe un campo de la matriz vacìo.")
-                    return
-                if not element.value.isnumeric() and not element.value.replace('.', '', 1).isdigit():
-                    self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', element.value + " no es un nùmero vàlido para la matriz.")
-                    return
+                if not VerifyVectores(element.value, self.dialog, "la matriz"): return
                 elements.append(float(element.value))
             matriz.append(elements)
         vector = []
         for element in self.vector.GetRow().controls:
-            if element.value == "":
-                self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', "Existe un campo del vector vacìo.")
-                return
-            if not element.value.isnumeric() and not element.value.replace('.', '', 1).isdigit():
-                self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', element.value + " no es un nùmero vàlido para el vector.")
-                return
+            if not VerifyVectores(element.value, self.dialog, "el vector"): return
             vector.append(float(element.value))
         try:
             result = GaussJordan(matriz, vector)
         except Exception as e:
             self.dialog.SetContent('Error al resolver con el mètodo de Gauss Jordan.', str(e))
             return
-        self.output.value = str(result)
+        self.output.value = str(result).replace('[', '').replace(']', '')[1:]
         self.output.update()
 
 def ChangeInputs(matriz, vector, value):

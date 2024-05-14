@@ -3,6 +3,9 @@ from random import randrange
 from ui import BottomButtons, MakeLabel
 from convertions import AllToAll
 
+def span():
+    return ft.Container(padding=10)
+
 def VerifyNumero(num, base):
     for n in str(num):
         if n.isnumeric():
@@ -57,7 +60,7 @@ class ConvertirUi:
     )
     ToBaseDrop = MakeBaseDropdown("Base objetivo")
     BaseDrop = MakeBaseDropdown("Base del nùmero")
-    column = ft.Column([note, NumInput, BaseDrop, ToBaseDrop],
+    column = ft.Column([note, span(), NumInput, BaseDrop, ToBaseDrop],
         alignment=ft.MainAxisAlignment.START, expand=True)
 
     def __init__(self, output, dialog, historial):
@@ -84,6 +87,5 @@ class ConvertirUi:
                 'Error al convertir el nùmero.', self.NumInput.value + " no pertenece a la base " + self.BaseDrop.value + "."
             )
             return
-        result = AllToAll(self.NumInput.value, self.BaseDrop.value, self.ToBaseDrop.value)
-        self.output.value = str(result)
+        self.output.value = str(AllToAll(self.NumInput.value, self.BaseDrop.value, self.ToBaseDrop.value))
         self.output.update()
